@@ -1,0 +1,32 @@
+name: yayyay
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-search:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4]
+        total: [5]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Release Binary
+        run: cargo build --release
+
+      - name: Run Search Script with Shard Args
+        run: ./target/release/secp_search ${{ matrix.shard }} ${{ matrix.total }}
+
+      - name: Upload Result Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-shard-${{ matrix.shard }}
+          path: trap_table8_shard_${{ matrix.shard }}.bin
