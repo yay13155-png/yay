@@ -20,7 +20,7 @@ fn main() {
     let base_k_str = "696898287454081973172991196020261297061888";
     let base_bigint = base_k_str.parse::<BigUint>().expect("Invalid base_k number");
 
-    let start_offset: u64 = 115_000_000_000; //စတင်မည့် နေရာ
+    let start_offset: u64 = 140_000_000_000; //စတင်မည့် နေရာ
     let total_max_steps: u64 = 5_000_000_000; // စုစုပေါင်း လုပ်ရမည့် steps ပမာဏ
     
     // Shard တစ်ခုချင်းစီအတွက် တာဝန်ကျမယ့် steps ပမာဏကို ခွဲဝေခြင်း
