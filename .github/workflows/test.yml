@@ -1,7 +1,16 @@
-name: yayyay
+name: Secp
 
 on:
   workflow_dispatch:
+    inputs:
+      start_offset:
+        description: 'Start Offset for this account'
+        required: true
+        default: '140000000000'
+      steps:
+        description: 'Total Steps for this account'
+        required: true
+        default: '5000000000'
 
 jobs:
   build-and-search:
@@ -23,7 +32,7 @@ jobs:
         run: cargo build --release
 
       - name: Run Search Script with Shard Args
-        run: ./target/release/secp_search ${{ matrix.shard }} ${{ matrix.total }}
+        run: ./target/release/secp_search ${{ matrix.shard }} ${{ matrix.total }} ${{ github.event.inputs.start_offset }} ${{ github.event.inputs.steps }}
 
       - name: Upload Result Artifacts
         uses: actions/upload-artifact@v4
